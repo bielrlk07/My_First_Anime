@@ -6,19 +6,19 @@ meus_animes = [
     {
         "nome": "Baki",
         "total_eps": 26,
-        "eps_vistos": 7,
+        "eps_vistos": 0,
         "finalizado": False
     },
     {
         "nome": "Death Note",
         "total_eps": 37,
-        "eps_vistos": 37,
-        "finalizado": True
+        "eps_vistos": 0,
+        "finalizado": False
     },
     {
         "nome": "Giji Harem",
         "total_eps": 12,
-        "eps_vistos": 3,
+        "eps_vistos": 0,
         "finalizado": False
     }
 ]
