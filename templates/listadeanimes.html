@@ -21,7 +21,15 @@
                 <form action="/atualizar" method="POST" style="margin-top: 5px;">
                 <!-- O campo hidden (oculto) envia o nome do anime para o Python saber qual atualizar -->
                 <input type="hidden" name="nome_anime" value="{{ anime.nome }}">
-                <input type="number" name="novos_eps" min="0" max="{{ anime.total_eps }}" placeholder="Eps vistos" required>
+                <input 
+                    type="number" 
+                    name="novos_eps" 
+                    min="1" 
+                    max="{{ anime.total_eps - anime.eps_vistos }}" 
+                    placeholder="+ Eps" 
+                    required 
+                    style="width: 80px; padding: 5px; font-size: 16px;"
+                    >
                 <button type="submit">Atualizar</button>
             </form>
         {%endif%}

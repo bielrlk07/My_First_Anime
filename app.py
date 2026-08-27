@@ -34,14 +34,16 @@ def atualizar():
     nome = request.form.get("nome_anime")
     novos_eps = int(request.form.get("novos_eps"))
 
-    # Procura o anime na lista e atualiza o número
+   # Pega o número que a pessoa digitou lá na caixinha
     for anime in meus_animes:
         if anime["nome"] == nome:
-            anime["eps_vistos"] = novos_eps
-            # Se o número de episódios vistos for igual ao total, finaliza automaticamente!
-            if novos_eps >= anime["total_eps"]:
+            # AQUI ESTÁ A MÁGICA: O += soma o valor atual com os novos episódios
+            anime["eps_vistos"] += novos_eps
+            # Verificação de segurança: se a soma bater ou passar do total, finaliza!
+            if anime["eps_vistos"] >= anime["total_eps"]:
+                anime["eps_vistos"] = anime["total_eps"]
                 anime["finalizado"] = True
-            break
+            break # Como já achamos e atualizamos o anime, podemos parar o loop
 
     return redirect("/")
 
