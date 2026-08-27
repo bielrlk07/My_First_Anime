@@ -25,7 +25,7 @@ meus_animes = [
 
 @app.route("/")
 def index():
-    return render_template("listadeanimes.html", meus_animes=meus_animes)
+    return render_template("listadeanimes.html", lista_animes=meus_animes)
 
 if __name__ == "__main__":
     app.run(port =4567, debug=True)

@@ -6,6 +6,17 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Lista de Animes</h1>
+    <ul>
+    {%for anime in lista_animes %}
+        <li> <strong> {{anime.nome}} </strong>
+        {%if anime.finalizado %}
+            <em style="color: green;">(Finalizado)</em>
+        {%else%}
+            <em style="color: orange;">(Em andamento: {{anime.eps_vistos}} / {{anime.total_eps}} episodios )</em>
+        {%endif%}
+        </li>
+        {%endfor%}
+    </ul>
 </body>
 </html>
