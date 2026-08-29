@@ -34,7 +34,6 @@ def index():
 
 @app.route("/atualizar", methods=["POST"])
 def atualizar():
-    global historico_acoes 
 
 
     nome = request.form.get("nome_anime")     # Avisa o Python que vamos modificar a memória global
@@ -66,7 +65,6 @@ def atualizar():
 
 @app.route("/desfazer",methods=["POST"]) # NOVA ROTA: Responsável por reverter a ação quando o botão Desfazer for clicado
 def desfazer():
-    global historico_acoes
 
     if len(historico_acoes) > 0: # Só tenta desfazer se a lista de histórico NÃO estiver vazia (len > 0)
         acao_revertida = historico_acoes.pop() # O .pop() pega a última ação salva e arranca ela da lista
@@ -78,7 +76,6 @@ def desfazer():
                 break
 
         
-        ultima_acao = None # Limpa a memória para que o botão suma da tela após ser usado
     return redirect("/")
 
 
