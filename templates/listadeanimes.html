@@ -6,11 +6,19 @@
     <title>Document</title>
 </head>
 <body>
+
+    <div style="text-align: right;">
+        Bem-vindo, {{ session.usuario_logado }}! 
+        <a href="/logout">Sair da conta</a>
+    </div>
+
+
     <h1>Lista de Animes</h1>
     <ul>
         <!-- Iniciamos um loop FOR para percorrer cada anime da lista -->
     {%for anime in lista_animes %}
         <li> <strong> {{anime.nome}} </strong>
+            <em style="color: black;">({{anime.tipo}})</em>
             <!-- Verificamos se o status é finalizado (True ou False) -->
         {%if anime.finalizado %}
             <em style="color: green;">(Finalizado)</em>

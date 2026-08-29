@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+</head>
+<body>
+    <h2>Acesse sua conta</h2>
+
+    <form action="/login" method="post">  <!-- Formulário que envia os dados para a rota /login -->
+        <div>
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        </div>
+
+        <div style="margin-top: 10px;">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        </div>
+
+        <button type="submit">Entrar</button>
+
+        {% if erro_no_login %}
+            <p style="color: red;">{{ erro_no_login }}</p> <!-- Exibe a mensagem de erro se houver -->
+        {% endif %}
+    </form>
+    
+</body>
+</html>
