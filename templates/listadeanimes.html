@@ -23,7 +23,7 @@
             {%endif%}
             
             <form action="/atualizar" method="post" style="margin-top: 5px;">
-                <form action="/atualizar" method="POST" style="margin-top: 5px;">
+
                 <!-- O campo hidden (oculto) envia o nome do anime para o Python saber qual atualizar -->
                 <input type="hidden" name="nome_anime" value="{{ anime.nome }}">
                 <input type="number" name="novos_eps" min="1" max="{{ anime.total_eps - anime.eps_vistos }}"
@@ -34,5 +34,15 @@
         </li>
         {%endfor%}
     </ul>
+    
+    {% if ultima_acao %}
+        <form action="/desfazer" method="POST" style="margin-top: 20px;">
+            <button type="submit" style="background-color: #ff4d4d; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 5px;">
+                Desfazer última alteração em "{{ ultima_acao.nome }}"
+            </button>
+        </form>
+    {% endif %}
+
+
 </body>
 </html>
