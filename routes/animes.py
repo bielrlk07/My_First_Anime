@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, request
+from flask import Blueprint, redirect, render_template, request, session
 
 from dados import (  # Importando os dados do seu arquivo novo
     historico_acoes,
@@ -6,6 +6,17 @@ from dados import (  # Importando os dados do seu arquivo novo
 )
 
 animes_bp = Blueprint("animes", __name__)
+
+
+@animes_bp.route("/")
+def index():
+
+    if "usuario_logado" not in session:  # Se o usuário não estiver logado, redireciona para a página de login
+        return redirect("/login")
+    
+    return render_template("listadeanimes.html", lista_animes=meus_animes, historico_acoes=historico_acoes)     # O render_template vai buscar um arquivo HTML e nós 'injetamos' a lista nele,
+        #Enviamos a lista de histórico inteira para o HTML
+
 
 
 @animes_bp.route("/atualizar", methods=["POST"])

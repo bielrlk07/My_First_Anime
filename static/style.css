@@ -1,0 +1,116 @@
+/* style.css - Inspirado na interface do Reddit */
+
+/* Fundo da página e fonte padrão */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #dae0e6; /* Cinza clássico do fundo do Reddit */
+    color: #1c1c1c; /* Quase preto, mais suave para leitura */
+    max-width: 650px; /* Largura mais estreita, imitando o feed principal */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* O topo (bem-vindo e sair) */
+div[style*="text-align: right;"] {
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+a {
+    color: #0079d3; /* Azul do Reddit */
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #1c1c1c;
+}
+
+/* Retira a formatação padrão da lista */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Estilo dos Cards (Cada Anime) */
+li {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border 0.1s ease; /* Transição suave na borda */
+}
+
+/* Efeito de passar o mouse por cima do post (igual no Reddit) */
+li:hover {
+    border: 1px solid #898989; 
+}
+
+/* Título do Anime no "post" */
+li strong {
+    font-size: 16px;
+    color: #222;
+}
+
+/* Inputs de texto e número */
+input[type="number"], input[type="text"], input[type="password"] {
+    border: 1px solid #edeff1;
+    background-color: #f6f7f8;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #1c1c1c;
+    outline: none;
+    transition: 0.2s;
+}
+
+/* Efeito quando clica para digitar na caixinha */
+input:focus {
+    background-color: #ffffff;
+    border-color: #0079d3;
+}
+
+/* Botões padrões no estilo "Pill" (pílula) do Reddit */
+button {
+    background-color: #0079d3; /* Azul característico */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 9999px; /* Arredonda totalmente as bordas */
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #1484d6;
+}
+
+/* Estilo específico para o formulário de Desfazer */
+form[action="/desfazer"] button {
+    background-color: #ff4500; /* Laranja/Vermelho oficial do Reddit (Upvote) */
+    width: 100%; /* Ocupa a tela toda para chamar atenção */
+    padding: 12px;
+}
+
+form[action="/desfazer"] button:hover {
+    background-color: #e03d00;
+}
