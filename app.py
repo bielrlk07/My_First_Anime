@@ -23,37 +23,39 @@ meus_animes = [
     }
 ]
 
+# A memória agora é uma Lista (para guardar várias ações)
+historico_acoes = []  
+
 @app.route("/")
 def index():
-    # O render_template vai buscar um arquivo HTML e nós 'injetamos' a lista nele
-    return render_template("listadeanimes.html", lista_animes=meus_animes, ultima_acao=ultima_acao)
-
-ultima_acao = None
+    # O render_template vai buscar um arquivo HTML e nós 'injetamos' a lista nele,
+    #Enviamos a lista de histórico inteira para o HTML
+    return render_template("listadeanimes.html", lista_animes=meus_animes, historico_acoes=historico_acoes)
 
 @app.route("/atualizar", methods=["POST"])
 def atualizar():
-    global ultima_acao 
-    # Avisa o Python que vamos modificar a memória global
-    # Pega as informações que vieram do HTML
-    nome = request.form.get("nome_anime")
-    novos_eps = int(request.form.get("novos_eps"))
+    global historico_acoes 
 
-   # Pega o número que a pessoa digitou lá na caixinha
-    for anime in meus_animes:
+
+    nome = request.form.get("nome_anime")     # Avisa o Python que vamos modificar a memória global
+    novos_eps = int(request.form.get("novos_eps")) # Pega as informações que vieram do HTML
+
+   
+    for anime in meus_animes: # Pega o número que a pessoa digitou lá na caixinha
         if anime["nome"] == nome:
 
             # ANTES de somar os episódios novos, nós tiramos uma "fotografia" do estado atual
-            ultima_acao = {
+            historico_acoes.append({
                 "nome": anime["nome"],
                 "eps_vistos_antes": anime["eps_vistos"],
                 "finalizado_antes": anime["finalizado"]
-            }
+            })
 
-            # AQUI ESTÁ A MÁGICA: O += soma o valor atual com os novos episódios
-            anime["eps_vistos"] += novos_eps
+            
+            anime["eps_vistos"] += novos_eps # O += soma o valor atual com os novos episódios
 
-            # Verificação de segurança: se a soma bater ou passar do total, finaliza!
-            if anime["eps_vistos"] >= anime["total_eps"]:
+            
+            if anime["eps_vistos"] >= anime["total_eps"]: # Verificação de segurança: se a soma bater ou passar do total, finaliza!
                 anime["eps_vistos"] = anime["total_eps"]
                 anime["finalizado"] = True
 
@@ -61,22 +63,22 @@ def atualizar():
 
     return redirect("/")
 
-# NOVA ROTA: Responsável por reverter a ação quando o botão Desfazer for clicado
-@app.route("/desfazer",methods=["POST"])
-def desfazer():
-    global ultima_acao
 
-    # Só faz alguma coisa se existir uma ação salva na memória
-    if ultima_acao is not None:
-        for anime in meus_animes:
-            if anime["nome"] == ultima_acao["nome"]:
-                # Devolve os valores antigos para o anime
-                anime["eps_vistos"] = ultima_acao["eps_vistos_antes"]
-                anime["finalizado"] = ultima_acao["finalizado_antes"]
+@app.route("/desfazer",methods=["POST"]) # NOVA ROTA: Responsável por reverter a ação quando o botão Desfazer for clicado
+def desfazer():
+    global historico_acoes
+
+    if len(historico_acoes) > 0: # Só tenta desfazer se a lista de histórico NÃO estiver vazia (len > 0)
+        acao_revertida = historico_acoes.pop() # O .pop() pega a última ação salva e arranca ela da lista
+
+        for anime in meus_animes: 
+            if anime["nome"] == acao_revertida["nome"]:
+                anime["eps_vistos"] = acao_revertida["eps_vistos_antes"] # Devolve os valores antigos para o anime
+                anime["finalizado"] = acao_revertida["finalizado_antes"]
                 break
 
-        # Limpa a memória para que o botão suma da tela após ser usado
-        ultima_acao = None
+        
+        ultima_acao = None # Limpa a memória para que o botão suma da tela após ser usado
     return redirect("/")
 
 

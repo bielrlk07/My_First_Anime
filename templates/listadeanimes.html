@@ -34,11 +34,12 @@
         </li>
         {%endfor%}
     </ul>
-    
-    {% if ultima_acao %}
+
+
+    {% if historico_acoes %}
         <form action="/desfazer" method="POST" style="margin-top: 20px;">
             <button type="submit" style="background-color: #ff4d4d; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 5px;">
-                Desfazer última alteração em "{{ ultima_acao.nome }}"
+                Desfazer última alteração em "{{ (historico_acoes|last).nome }}" <!-- O filtro '| last' pega exatamente a última alteração que foi guardada -->
             </button>
         </form>
     {% endif %}
